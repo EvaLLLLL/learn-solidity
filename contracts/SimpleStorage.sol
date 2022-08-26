@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
+// EVM, Ethereum Virtual Machine
+// Avalanche, Fantom, Polygon
+
 contract SimpleStorage {
     // boolean, string, unit, init, address, bytes
     // bool hasFavoriteNumber = false;
@@ -12,12 +15,14 @@ contract SimpleStorage {
     // This gets initialized to zero!
     uint256 favoriteNumber;
 
+    mapping(string => uint256) public nameToFavoriteNumber;
+
     struct People {
         uint256 favoriteNumber;
         string name;
     }
 
-    uint256[] public favoriteNumberList;
+    uint256[] favoriteNumberList;
     People[] public people;
 
     function store(uint256 _favoriteNumber) public {
@@ -38,6 +43,7 @@ contract SimpleStorage {
         // People memory newPerson = People({favoriteNumber: _favoriteNumber, name: _name});
         // People memory newPerson = People(_favoriteNumber, _name);
         people.push(People(_favoriteNumber, _name));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
     }
 }
 
