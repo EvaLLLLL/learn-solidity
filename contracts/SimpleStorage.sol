@@ -10,11 +10,18 @@ contract SimpleStorage {
     // bytes32 favoriteBytes = "cat";
 
     // This gets initialized to zero!
-    uint256 public favoriteNumber;
+    uint256 favoriteNumber;
+
+    struct People {
+        uint256 favoriteNumber;
+        string name;
+    }
+
+    uint256[] public favoriteNumberList;
+    People[] public people;
 
     function store(uint256 _favoriteNumber) public {
         favoriteNumber = _favoriteNumber;
-        uint256 testVar = 5;
     }
 
     // view, pure functions for read state, no gas cost
@@ -22,8 +29,15 @@ contract SimpleStorage {
         return favoriteNumber;
     }
 
-    function add() public pure returns (uint256) {
-        return (1 + 1);
+    // strucks, mappings, arrays need to be given
+    // string is a secret array
+    // calldata: only exist during transaction, but can't be modified
+    // memory: only exist during transaction, but can be modified
+    // storage: permanent variables that can be modified
+    function addPerson(string calldata _name, uint256 _favoriteNumber) public {
+        // People memory newPerson = People({favoriteNumber: _favoriteNumber, name: _name});
+        // People memory newPerson = People(_favoriteNumber, _name);
+        people.push(People(_favoriteNumber, _name));
     }
 }
 
